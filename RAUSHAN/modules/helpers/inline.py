@@ -1,122 +1,112 @@
 from pyrogram.types import InlineKeyboardButton
-
 from config import SUPPORT_GRP, UPDATE_CHNL
 from RAUSHAN import BOT_USERNAME, OWNER
 
 DEV_OP = [
     [
         InlineKeyboardButton(
-            text=" ᴀᴅᴅ ᴍᴇ ʙᴀʙʏ ",
+            text="➕ افزودن به گروه",
             url=f"https://t.me/{BOT_USERNAME}?startgroup=true",
         ),
     ],
     [
-        InlineKeyboardButton(text="ᴏᴡɴᴇʀ", user_id=OWNER),
-        InlineKeyboardButton(text="ʜᴇʟᴘ & ᴄᴍᴅs", callback_data="HELP"),
+        InlineKeyboardButton(text="👨‍💻 سازنده", user_id=OWNER),
+        InlineKeyboardButton(text="💡 راهنما و دستورات", callback_data="HELP"),
     ],
 ]
 
 PNG_BTN = [
     [
         InlineKeyboardButton(
-            text="ᴀᴅᴅ ᴍᴇ ʙᴀʙʏ",
+            text="➕ افزودن به گروه",
             url=f"https://t.me/{BOT_USERNAME}?startgroup=true",
         ),
     ],
     [
         InlineKeyboardButton(
-            text="ᴄʟᴏsᴇ",
+            text="❌ بستن",
             callback_data="CLOSE",
         ),
     ],
 ]
 
-
 BACK = [
     [
-        InlineKeyboardButton(text="◁", callback_data="BACK"),
+        InlineKeyboardButton(text="🔙 برگشت", callback_data="BACK"),
     ],
 ]
-
 
 HELP_BTN = [
     [
-        InlineKeyboardButton(text="ᴄʜᴀᴛʙᴏᴛ", callback_data="CHATBOT_CMD"),
-        InlineKeyboardButton(text="ᴛᴏᴏʟs", callback_data="TOOLS_DATA"),
+        InlineKeyboardButton(text="🤖 چت‌بات", callback_data="CHATBOT_CMD"),
+        InlineKeyboardButton(text="🛠 ابزارها", callback_data="TOOLS_DATA"),
     ],
     [
-        InlineKeyboardButton(text="◁", callback_data="BACK"),
-        InlineKeyboardButton(text="ᴄʟᴏsᴇ", callback_data="CLOSE"),
+        InlineKeyboardButton(text="🔙 برگشت", callback_data="BACK"),
+        InlineKeyboardButton(text="❌ بستن", callback_data="CLOSE"),
     ],
 ]
-
 
 CLOSE_BTN = [
     [
-        InlineKeyboardButton(text="ᴄʟᴏsᴇ", callback_data="CLOSE"),
+        InlineKeyboardButton(text="❌ بستن", callback_data="CLOSE"),
     ],
 ]
-
 
 CHATBOT_ON = [
     [
-        InlineKeyboardButton(text="ᴇɴᴀʙʟᴇ", callback_data=f"addchat"),
-        InlineKeyboardButton(text="ᴅɪsᴀʙʟᴇ", callback_data=f"rmchat"),
+        InlineKeyboardButton(text="✅ فعال‌سازی", callback_data=f"addchat"),
+        InlineKeyboardButton(text="❌ غیرفعال‌سازی", callback_data=f"rmchat"),
     ],
 ]
 
-
 MUSIC_BACK_BTN = [
     [
-        InlineKeyboardButton(text="sᴏᴏɴ..", callback_data=f"soom"),
+        InlineKeyboardButton(text="🔜 به‌زودی", callback_data=f"soom"),
     ],
 ]
 
 S_BACK = [
     [
-        InlineKeyboardButton(text="◁", callback_data="SBACK"),
-        InlineKeyboardButton(text="ᴄʟᴏsᴇ", callback_data="CLOSE"),
+        InlineKeyboardButton(text="🔙 برگشت", callback_data="SBACK"),
+        InlineKeyboardButton(text="❌ بستن", callback_data="CLOSE"),
     ],
 ]
-
 
 CHATBOT_BACK = [
     [
-        InlineKeyboardButton(text="◁", callback_data="CHATBOT_BACK"),
-        InlineKeyboardButton(text="ᴄʟᴏsᴇ", callback_data="CLOSE"),
+        InlineKeyboardButton(text="🔙 برگشت", callback_data="CHATBOT_BACK"),
+        InlineKeyboardButton(text="❌ بستن", callback_data="CLOSE"),
     ],
 ]
-
 
 HELP_START = [
     [
-        InlineKeyboardButton(text="ʜᴇʟᴘ", callback_data="HELP"),
-        InlineKeyboardButton(text="ᴄʟᴏsᴇ", callback_data="CLOSE"),
+        InlineKeyboardButton(text="💡 راهنما", callback_data="HELP"),
+        InlineKeyboardButton(text="❌ بستن", callback_data="CLOSE"),
     ],
 ]
-
 
 HELP_BUTN = [
     [
         InlineKeyboardButton(
-            text="ʜᴇʟᴘ", url=f"https://t.me/{BOT_USERNAME}?start=help"
+            text="💡 راهنما", url=f"https://t.me/{BOT_USERNAME}?start=help"
         ),
-        InlineKeyboardButton(text="ᴄʟᴏsᴇ", callback_data="CLOSE"),
+        InlineKeyboardButton(text="❌ بستن", callback_data="CLOSE"),
     ],
 ]
 
-
 ABOUT_BTN = [
     [
-        InlineKeyboardButton(text="sᴜᴘᴘᴏʀᴛ", url=f"https://t.me/{SUPPORT_GRP}"),
-        InlineKeyboardButton(text="ʜᴇʟᴘ", callback_data="HELP"),
+        InlineKeyboardButton(text="👥 پشتیبانی", url=f"https://t.me/{SUPPORT_GRP}"),
+        InlineKeyboardButton(text="💡 راهنما", callback_data="HELP"),
     ],
     [
-        InlineKeyboardButton(text="ᴏᴡɴᴇʀ", user_id=OWNER),
-        InlineKeyboardButton(text="sᴏᴜʀᴄᴇ", callback_data="SOURCE"),
+        InlineKeyboardButton(text="👨‍💻 سازنده", user_id=OWNER),
+        InlineKeyboardButton(text="ℹ️ سورس", callback_data="SOURCE"),
     ],
     [
-        InlineKeyboardButton(text="ᴜᴘᴅᴀᴛᴇs", url=f"https://t.me/{UPDATE_CHNL}"),
-        InlineKeyboardButton(text="◁", callback_data="BACK"),
+        InlineKeyboardButton(text="📢 کانال آپدیت‌ها", url=f"https://t.me/{UPDATE_CHNL}"),
+        InlineKeyboardButton(text="🔙 برگشت", callback_data="BACK"),
     ],
 ]
