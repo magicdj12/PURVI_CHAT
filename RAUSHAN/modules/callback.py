@@ -1,7 +1,6 @@
 # Don't remove This Line From Here. Tg: @ll_ALPHA_BABY_lll
 # Github :-RAUSHAN
 
-
 from pyrogram.enums import ChatMemberStatus as CMS
 from pyrogram.types import CallbackQuery, InlineKeyboardMarkup
 
@@ -23,7 +22,6 @@ from RAUSHAN.modules.helpers import (
     TOOLS_DATA_READ,
 )
 
-
 @AMBOT.on_callback_query()
 async def cb_handler(_, query: CallbackQuery):
     if query.data == "HELP":
@@ -34,7 +32,7 @@ async def cb_handler(_, query: CallbackQuery):
         )
     elif query.data == "CLOSE":
         await query.message.delete()
-        await query.answer("ᴄʟᴏsᴇᴅ ᴍᴇɴᴜ!", show_alert=True)
+        await query.answer("منو بسته شد!", show_alert=True)
     elif query.data == "BACK":
         await query.message.edit(
             text=START,
@@ -82,24 +80,24 @@ async def cb_handler(_, query: CallbackQuery):
         user_status = (await query.message.chat.get_member(user_id)).status
         if user_status not in [CMS.OWNER, CMS.ADMINISTRATOR]:
             return await query.answer(
-                "ʏᴏᴜ'ʀᴇ ɴᴏᴛ ᴇᴠᴇɴ ᴀɴ ᴀᴅᴍɪɴ, ᴅᴏɴ'ᴛ ᴛʀʏ ᴛʜɪs ᴇxᴘʟᴏsɪᴠᴇ sʜɪᴛ!",
+                "شما ادمین نیستید، این عملیات مجاز نیست!",
                 show_alert=True,
             )
         else:
             is_vick = vick.find_one({"chat_id": query.message.chat.id})
             if not is_vick:
-                await query.edit_message_text(f"**ᴄʜᴀᴛ-ʙᴏᴛ ᴀʟʀᴇᴀᴅʏ ᴇɴᴀʙʟᴇᴅ.**")
+                await query.edit_message_text(f"**چت-بات در حال حاضر فعال است.**")
             if is_vick:
                 vick.delete_one({"chat_id": query.message.chat.id})
                 await query.edit_message_text(
-                    f"**ᴄʜᴀᴛ-ʙᴏᴛ ᴇɴᴀʙʟᴇᴅ ʙʏ** {query.from_user.mention}."
+                    f"**چت-بات توسط {query.from_user.mention} فعال شد.**"
                 )
     elif query.data == "rmchat":
         user_id = query.from_user.id
         user_status = (await query.message.chat.get_member(user_id)).status
         if user_status not in [CMS.OWNER, CMS.ADMINISTRATOR]:
             await query.answer(
-                "ʏᴏᴜ'ʀᴇ ɴᴏᴛ ᴇᴠᴇɴ ᴀɴ ᴀᴅᴍɪɴ, ᴅᴏɴ'ᴛ ᴛʀʏ ᴛʜɪs ᴇxᴘʟᴏsɪᴠᴇ sʜɪᴛ!",
+                "شما ادمین نیستید، این عملیات مجاز نیست!",
                 show_alert=True,
             )
             return
@@ -108,7 +106,10 @@ async def cb_handler(_, query: CallbackQuery):
             if not is_vick:
                 vick.insert_one({"chat_id": query.message.chat.id})
                 await query.edit_message_text(
-                    f"**ᴄʜᴀᴛ-ʙᴏᴛ ᴅɪsᴀʙʟᴇᴅ ʙʏ** {query.from_user.mention}."
+                    f"**چت-بات توسط {query.from_user.mention} غیرفعال شد.**"
                 )
             if is_vick:
-                await query.edit_message_text("**ᴄʜᴀᴛ-ʙᴏᴛ ᴀʟʀᴇᴀᴅʏ ᴅɪsᴀʙʟᴇᴅ.**")
+                await query.edit_message_text("**چت-بات در حال حاضر غیرفعال است.**")
+
+# کانال: @atrinmusic_tm
+# مالک: @beblnn
