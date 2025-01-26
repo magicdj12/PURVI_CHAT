@@ -18,10 +18,10 @@ async def stats(cli: dev, message: Message):
     users = len(await get_served_users())
     chats = len(await get_served_chats())
     await message.reply_text(
-        f"""ᴛᴏᴛᴀʟ sᴛᴀᴛs ᴏғ {(await cli.get_me()).mention} :
+        f"""آمار کلی {(await cli.get_me()).mention} :
 
-➻ **ᴄʜᴀᴛs :** {chats}
-➻ **ᴜsᴇʀs :** {users}"""
+➻ **گروه‌ها:** {chats}
+➻ **کاربران:** {users}"""
     )
 
 async def send_msg(user_id, message):
@@ -31,20 +31,20 @@ async def send_msg(user_id, message):
         await asyncio.sleep(e.x)
         return send_msg(user_id, message)
     except InputUserDeactivated:
-        return 400, f"{user_id} : deactivated\n"
+        return 400, f"{user_id} : غیرفعال شده\n"
     except UserIsBlocked:
-        return 400, f"{user_id} : blocked the bot\n"
+        return 400, f"{user_id} : ربات را مسدود کرده\n"
     except PeerIdInvalid:
-        return 400, f"{user_id} : user id invalid\n"
+        return 400, f"{user_id} : شناسه کاربری نامعتبر\n"
     except Exception:
         return 500, f"{user_id} : {traceback.format_exc()}\n"
 
 @dev.on_message(filters.command("gcast") & filters.user(OWNER_ID))
 async def broadcast(_, message):
     if not message.reply_to_message:
-        await message.reply_text("ʀᴇᴘʟʏ ᴛᴏ ᴀ ᴍᴇssᴀɢᴇ ᴛᴏ ʙʀᴏᴀᴅᴄᴀsᴛ ɪᴛ.")
+        await message.reply_text("برای پخش پیام، روی یک پیام ریپلای کنید.")
         return    
-    exmsg = await message.reply_text("sᴛᴀʀᴛᴇᴅ ʙʀᴏᴀᴅᴄᴀsᴛɪɴɢ!")
+    exmsg = await message.reply_text("پخش پیام آغاز شد!")
     all_chats = (await get_served_chats()) or {}
     all_users = (await get_served_users()) or {}
     done_chats = 0
@@ -70,11 +70,11 @@ async def broadcast(_, message):
             failed_users += 1
     if failed_users == 0 and failed_chats == 0:
         await exmsg.edit_text(
-            f"**sᴜᴄᴄᴇssғᴜʟʟʏ ʙʀᴏᴀᴅᴄᴀsᴛɪɴɢ ✅**\n\n**sᴇɴᴛ ᴍᴇssᴀɢᴇ ᴛᴏ** `{done_chats}` **ᴄʜᴀᴛs ᴀɴᴅ** `{done_users}` **ᴜsᴇʀs**",
+            f"**پخش پیام با موفقیت انجام شد ✅**\n\n**پیام به** `{done_chats}` **گروه و** `{done_users}` **کاربر ارسال شد**",
         )
     else:
         await exmsg.edit_text(
-            f"**sᴜᴄᴄᴇssғᴜʟʟʏ ʙʀᴏᴀᴅᴄᴀsᴛɪɴɢ ✅**\n\n**sᴇɴᴛ ᴍᴇssᴀɢᴇ ᴛᴏ** `{done_chats}` **ᴄʜᴀᴛs** `{done_users}` **ᴜsᴇʀs**\n\n**ɴᴏᴛᴇ:-** `ᴅᴜᴇ ᴛᴏ sᴏᴍᴇ ɪssᴜᴇ ᴄᴀɴ'ᴛ ᴀʙʟᴇ ᴛᴏ ʙʀᴏᴀᴅᴄᴀsᴛ` `{failed_users}` **ᴜsᴇʀs ᴀɴᴅ** `{failed_chats}` **ᴄʜᴀᴛs**",
+            f"**پخش پیام با موفقیت انجام شد ✅**\n\n**پیام به** `{done_chats}` **گروه و** `{done_users}` **کاربر ارسال شد**\n\n**توجه:** `به دلیل برخی مشکلات، امکان ارسال به` `{failed_users}` **کاربر و** `{failed_chats}` **گروه وجود نداشت**",
         )
 
 @dev.on_message(filters.command("promo") & filters.user(OWNER_ID))
@@ -82,7 +82,7 @@ async def announced(_, message):
     if message.reply_to_message:
       to_send=message.reply_to_message.id
     if not message.reply_to_message:
-      return await message.reply_text("Reply To Some Post To Broadcast")
+      return await message.reply_text("برای پخش پیام، روی یک پست ریپلای کنید")
     chats = await get_served_chats() or []
     users = await get_served_users() or []
     print(chats)
@@ -103,5 +103,7 @@ async def announced(_, message):
       except Exception as e:
         failed_user += 1
 
+    await message.reply_text("پخش پیام کامل شد. {} گروه به دلیل اخراج ربات نتوانستند پیام را دریافت کنند. {} کاربر به دلیل مسدود کردن ربات نتوانستند پیام را دریافت کنند.".format(failed, failed_user))
 
-    await message.reply_text("Bʀᴏᴀᴅᴄᴀsᴛ ᴄᴏᴍᴘʟᴇᴛᴇ. {} ɢʀᴏᴜᴘs ғᴀɪʟᴇᴅ ᴛᴏ ʀᴇᴄᴇɪᴠᴇ ᴛʜᴇ ᴍᴇssᴀɢᴇ, ᴘʀᴏʙᴀʙʟʏ ᴅᴜᴇ ᴛᴏ ʙᴇɪɴɢ ᴋɪᴄᴋᴇᴅ. {} ᴜsᴇʀs ғᴀɪʟᴇᴅ ᴛᴏ ʀᴇᴄᴇɪᴠᴇ ᴛʜᴇ ᴍᴇssᴀɢᴇ, ᴘʀᴏʙᴀʙʟʏ ᴅᴜᴇ ᴛᴏ ʙᴇɪɴɢ ʙᴀɴɴᴇᴅ. .".format(failed, failed_user))
+# کانال: @atrinmusic_tm
+# مالک: @beblnn
