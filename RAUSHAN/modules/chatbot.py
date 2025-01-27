@@ -1,5 +1,4 @@
 import random
-
 from pymongo import MongoClient
 from pyrogram import Client, filters
 from pyrogram.enums import ChatAction
@@ -9,7 +8,13 @@ from config import MONGO_URL
 from RAUSHAN import AMBOT
 from RAUSHAN.modules.helpers import CHATBOT_ON, is_admins
 
+# اتصال به دیتابیس
+chatdb = MongoClient(MONGO_URL)
+chatai = chatdb["Word"]["WordDb"]
+vickdb = MongoClient(MONGO_URL)
+vick = vickdb["VickDb"]["Vick"]
 
+# دستور فعال/غیرفعال کردن چت‌بات
 @AMBOT.on_message(filters.command(["chatbot"]) & filters.group & ~filters.bot)
 @is_admins
 async def chaton_off(_, m: Message):
@@ -19,7 +24,7 @@ async def chaton_off(_, m: Message):
     )
     return
 
-
+# پاسخ به پیام‌های متنی در گروه
 @AMBOT.on_message(
     (filters.text | filters.sticker | filters.group) & ~filters.private & ~filters.bot,
 )
@@ -35,9 +40,7 @@ async def chatbot_text(client: Client, message: Message):
             return
     except Exception:
         pass
-    chatdb = MongoClient(MONGO_URL)
-    chatai = chatdb["Word"]["WordDb"]
-
+    
     if not message.reply_to_message:
         vickdb = MongoClient(MONGO_URL)
         vick = vickdb["VickDb"]["Vick"]
@@ -78,7 +81,8 @@ async def chatbot_text(client: Client, message: Message):
                         await message.reply_sticker(f"{hey}")
                     if not Yo == "sticker":
                         await message.reply_text(f"{hey}")
-        if not message.reply_to_message.from_user.id == client.id:
+        
+        if not message.reply_to_message.from_user.id == client.id:          
             if message.sticker:
                 is_chat = chatai.find_one(
                     {
@@ -108,7 +112,7 @@ async def chatbot_text(client: Client, message: Message):
                         }
                     )
 
-
+# پاسخ به استیکرها در گروه
 @AMBOT.on_message(
     (filters.sticker | filters.group | filters.text) & ~filters.private & ~filters.bot,
 )
@@ -124,8 +128,6 @@ async def chatbot_sticker(client: Client, message: Message):
             return
     except Exception:
         pass
-    chatdb = MongoClient(MONGO_URL)
-    chatai = chatdb["Word"]["WordDb"]
 
     if not message.reply_to_message:
         vickdb = MongoClient(MONGO_URL)
@@ -167,6 +169,7 @@ async def chatbot_sticker(client: Client, message: Message):
                         await message.reply_text(f"{hey}")
                     if not Yo == "text":
                         await message.reply_sticker(f"{hey}")
+        
         if not message.reply_to_message.from_user.id == Client.id:
             if message.text:
                 is_chat = chatai.find_one(
@@ -199,7 +202,7 @@ async def chatbot_sticker(client: Client, message: Message):
                         }
                     )
 
-
+# پاسخ به پیام‌های متنی در چت خصوصی
 @AMBOT.on_message(
     (filters.text | filters.sticker | filters.group) & ~filters.private & ~filters.bot,
 )
@@ -215,8 +218,7 @@ async def chatbot_pvt(client: Client, message: Message):
             return
     except Exception:
         pass
-    chatdb = MongoClient(MONGO_URL)
-    chatai = chatdb["Word"]["WordDb"]
+
     if not message.reply_to_message:
         await client.send_chat_action(message.chat.id, ChatAction.TYPING)
         K = []
@@ -230,6 +232,7 @@ async def chatbot_pvt(client: Client, message: Message):
             await message.reply_sticker(f"{hey}")
         if not Yo == "sticker":
             await message.reply_text(f"{hey}")
+
     if message.reply_to_message:
         if message.reply_to_message.from_user.id == client.id:
             await client.send_chat_action(message.chat.id, ChatAction.TYPING)
@@ -245,11 +248,9 @@ async def chatbot_pvt(client: Client, message: Message):
             if not Yo == "sticker":
                 await message.reply_text(f"{hey}")
 
-
+# پاسخ به استیکرها در چت خصوصی
 @AMBOT.on_message(
-    (filters.sticker | filters.sticker | filters.group)
-    & ~filters.private
-    & ~filters.bot,
+    (filters.sticker | filters.sticker | filters.group) & ~filters.private & ~filters.bot,
 )
 async def chatbot_sticker_pvt(client: Client, message: Message):
     try:
@@ -263,8 +264,7 @@ async def chatbot_sticker_pvt(client: Client, message: Message):
             return
     except Exception:
         pass
-    chatdb = MongoClient(MONGO_URL)
-    chatai = chatdb["Word"]["WordDb"]
+
     if not message.reply_to_message:
         await client.send_chat_action(message.chat.id, ChatAction.TYPING)
         K = []
@@ -278,6 +278,7 @@ async def chatbot_sticker_pvt(client: Client, message: Message):
             await message.reply_text(f"{hey}")
         if not Yo == "text":
             await message.reply_sticker(f"{hey}")
+
     if message.reply_to_message:
         if message.reply_to_message.from_user.id == client.id:
             await client.send_chat_action(message.chat.id, ChatAction.TYPING)
